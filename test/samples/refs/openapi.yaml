@@ -3,6 +3,18 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: OpenAPI Ref Example
+
+components:
+  schemas:
+    myobject:
+      type: object
+      properties:
+        a:
+          description: property a
+          type: string
+        b:
+          type: number
+
 paths:
   /a:
     $ref: './a.yaml'
@@ -15,3 +27,6 @@ paths:
       responses:
         '405':
           description: Invalid input
+
+  /c:
+    $ref: './c.yaml'

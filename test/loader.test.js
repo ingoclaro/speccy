@@ -85,6 +85,14 @@ describe('loader.js', () => {
             should(spec.paths['/a'].post.description).equal('Some operation object');
         });
 
+        it('resolves component refs', async () => {
+            const spec = await loader.loadSpec(samplesDir + 'refs/openapi.yaml', { resolve: true });
+            console.log('spec', spec.paths['/c'].post.requestBody)
+            should(spec.paths['/c'].post.requestBody.content['application/json'].schema).match({
+              $ref: '#/components/schemas/myobject'
+            });
+        });
+
         it('resolves JSON Schema $refs when passed { jsonSchema: true }', async () => {
             const spec = await loader.loadSpec(samplesDir + 'json-schema/openapi.yaml', {
                 jsonSchema: true,
